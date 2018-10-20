@@ -1,0 +1,35 @@
+﻿@{
+    ViewBag.Title = "Обсуждения";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h3 class="name_page">Вопросы и Ответы (Beta-версия)</h3>
+<p style="font-style:italic;" align="center">Используя данный форум, вы соглашаетесь с <a href="/Forum/Regulations"><b>правилами</b></a></p>
+<p style="font-style:italic;">
+    Помогайте друг другу, задавайте вопросы если вам что то не понятно, или отвечайте на вопросы других пользователей, общение друг с другом повышает мотивацию и интерес к изучению материала.
+    Что бы задать или ответить на вопрос, сначала выберите курс и интересующую вас тему. Не создавайте вопросов в темах, к которым они не относятся, так вы усложните поиск ответов другими пользователями.
+</p>
+
+<ol>
+    @{int start = 0; }
+    @foreach (var b in ViewBag.CountThemas)
+    {
+        int check = 0;
+
+        for (int i = start; i < ViewBag.lenght; i++)
+        {
+            if (check > 0)
+            {
+                start++;
+                break;
+            }
+            if (b.CountThemas != 0)
+            {
+                <li id="@b.CountThemas"><a href="/Forum/ListThemas/@b.IdLanguage">Курс по @b.Language  <span> (вопросов без ответов @ViewBag.Count[i]) </span></a></li>
+            }
+            check++;
+        }
+    }
+</ol>
+
+

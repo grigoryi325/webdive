@@ -1,0 +1,52 @@
+﻿@using jQuery.HtmlHelpers
+@model jQuery.Models.Pagination.QuestionsListViewModel
+@{
+    ViewBag.Title = "AsqQuestion";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h3 class="name_page">Вопросы</h3>
+
+<p align="center"><a class="next" href="/Forum/CreateQestion/@ViewBag.ThemaId">задать вопрос</a></p><br>
+
+<a class="next" href="/Forum/ListThemas/@ViewBag.ThemePage.LanguageId">К темам</a><br><br>
+
+@if (ViewBag.QuestionsCount != 0)
+{
+    int start = 0;
+    foreach (var item in Model.AskQuestions)
+    {
+        int check = 0;
+
+        for (int i = start; i < ViewBag.lenght; i++)
+        {
+            if (check > 0)
+            {
+                start++;
+                break;
+            }
+            <a href="/Forum/Discussion/@item.Id">@item.Question <span> (ответов @ViewBag.Count[i]) </span></a>
+            check++;
+        }
+
+        if (Session["Id"] != null)
+        {
+            if ((Session["Role"].ToString() == "user") && (Session["Id"].ToString() == item.UserId.ToString()))
+            {
+                <span>( <a href="/Forum/EditAsqQuestion/@item.Id">редактировать</a> )</span>
+            }
+            else if (Session["Role"].ToString() == "admin")
+            {
+                <span>( <a href="/Forum/EditAsqQuestion/@item.Id">редактировать</a> )</span>
+            }
+        }
+        <br>
+    }
+}
+
+@*@for (int i = 0; i < ViewBag.lenght; i++)
+    {
+        <span>@ViewBag.Count[i]</span>
+    }*@
+
+<p class="pagelink" align="center">@Html.PageLinks(Model.PagingInfo, x => Url.Action("AsqQuestion", new { page = x, @class = "btn btn-default" }))</p>

@@ -1,0 +1,21 @@
+﻿<p>Меню</p>
+<ol class="main-menu">
+
+    <li><a href="/Home/Index/">Главная</a></li>
+    <li><a href="/Forum/Index">Вопросы и Ответы (Beta) <span> +@ViewBag.ResultCount</span></a></li>
+    <li><a href="/News/Index/">Новости</a></li>
+    <!--<li><a href="">О сайте</a></li>-->
+    <li><a href="/Home/Contact">Контакты</a></li>
+    <!--<li><a href="">Форум</a></li>-->
+</ol>
+<!--<p>Програмирование</p>-->
+<hr>
+<ol class="main-menu">
+    @foreach (var b in ViewBag.CountThemas)
+    {
+        if (b.CountThemas != 0)
+        {
+            <li><a href="/Home/Index/@b.IdLanguage">@b.Language</a></li>
+        }
+    }
+</ol>

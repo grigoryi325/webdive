@@ -1,0 +1,35 @@
+﻿<div>
+    <p align="center">@ViewBag.DescriptionQuestion.Description</p>
+</div>
+
+@if (Session["Id"] != null)
+{
+    <div class="login_form">
+        <form method="post" action="/Forum/UserSavePost/@ViewBag.IdQuestion">
+
+            <input type="hidden" name="AskQuestionId" value="@ViewBag.IdQuestion" />
+            <input type="hidden" name="UserId" value='@Session["Id"]' />
+            <input type="hidden" name="Status" value="published" />
+            <input type="hidden" name="LoginUser" value='@Session["Login"]' />
+            <input type="hidden" name="Role" value='@Session["Role"]' />
+            <input type="hidden" name="DateTime" value='@DateTime.Now' />
+
+            <textarea class="form-control" type="text" name="Text" rows=" 8" required="" placeholder="введите сообщение"></textarea><br>
+
+            <input class="btn btn-default" type="submit" value="Отправить" />
+        </form>
+    </div>
+}
+else
+{
+    <div class="login_form">
+        <p align="center" style="font-style:italic;">Чтобы ответить на вопрос нужно авторизоваться на сайте.</p>
+        <form method="post" disabled>
+            <textarea class="form-control" type="text" name="Text" rows=" 8" disabled></textarea><br>
+
+            <input class="btn btn-default" type="submit" value="Отправить" disabled />
+        </form>
+    </div>
+}
+<hr />
+

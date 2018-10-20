@@ -1,0 +1,42 @@
+﻿
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@if (Session["Role"] != "admin")
+{
+    <script type="text/javascript">
+        document.ondragstart = noselect;
+        // запрет на перетаскивание
+        document.onselectstart = noselect;
+        // запрет на выделение элементов страницы
+        document.oncontextmenu = noselect;
+        // запрет на выведение контекстного меню
+        function noselect() { return false; }
+    </script>
+}
+
+@if ((@ViewBag.Check.ControlCheck != null) || (Session["Role"] == "admin"))
+{
+    <font color="#1068af">
+        <h3 align="center">Примеры решения задач</h3>
+        <h4 align="center">@ViewBag.Nam.Name</h4>
+    </font>
+    <br>
+    if (@ViewBag.Explanation.Description == null)
+    {
+        <p class="message">Объяснение к данной теме находится в разработке...</p>
+    }
+    else
+    {
+        <p>@Html.Raw(@ViewBag.Explanation.Description)</p>
+    }
+
+
+    if (Session["Role"] == "admin")
+    {
+        <p><a class="edit" href="/Admin/EditExplanation/@ViewBag.Explanation.Id">Редактировать</a></p>
+    }
+
+    <p><a class="next" href="/Home/Index">На главную</a></p>
+}

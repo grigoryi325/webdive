@@ -1,0 +1,26 @@
+﻿@model IEnumerable<jQuery.Models.MessageModels.FeedbackMessage>
+@{
+    ViewBag.Title = "AnswerMessage";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h3 class="name_page">Входящие сообщения</h3>
+
+@foreach (var item in Model)
+{
+    <div class="alert alert-success" role="alert">
+        <h4><i>@item.EmailUser</i><br> <b> @item.Thema</b></h4>
+        <hr>
+        <p>@item.Description</p><br>
+
+        <form method="post" action="/Feedback/AnswerMessage/">
+            <input type="hidden" name="Id" value="@item.Id">
+            <input type="hidden" name="AdminEmail" value="@Session["Email"]">
+            <input type="hidden" name="AStatus" value="yes">
+            <input type="hidden" name="DateTimeAdmin" value="@DateTime.Now" />
+
+            <textarea name="ADescription" class="form-control" rows="4"></textarea><br>
+            <input class="btn btn-default" type="submit" value="Ответить">
+        </form>
+    </div>
+}

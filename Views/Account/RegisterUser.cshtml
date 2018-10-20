@@ -1,0 +1,57 @@
+﻿@model jQuery.Models.AccountModels.User
+@{
+    ViewBag.Title = "RegisterUser";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<style>
+    .login_form {
+        width: 350px;
+        margin: 0 auto;
+    }
+
+    #errors li {
+        font-weight: bold;
+        color: #f00;
+    }
+</style>
+
+<script>
+    $(function () {
+        $("#errors li").each(function () {
+            if ($(this).text() == "") {
+                $(this).hide();
+            } else {
+                $(this).show();
+            }
+        });
+    });
+</script>
+
+<div class="login_form">
+    <h3 style="text-align:center; margin-bottom: 27px;" class="name_page">Регистрация</h3>
+
+    <form method="post" action="/Account/RegisterUser/">
+
+        @Html.ValidationSummary()
+        <ul id="errors">
+            <li>@ViewBag.ErrorConfirmPassword</li>
+            <li>@ViewBag.ErrorRegisterLogin</li>
+            <li>@ViewBag.ErrorRegisterEmail</li>
+        </ul>
+
+        <label>Логин</label>
+        <input class="form-control" type="text" required="" placeholder="введите логин" name="LoginUser" /><br>
+
+        <label>Email</label><br>
+        <input class="form-control" type="email" required="" placeholder="введите email" name="Email" /><br>
+
+        <label>Пароль</label><br>
+        <input class="form-control" type="password" name="Password" required="" placeholder="введите пароль" /><br>
+
+        <label>Подтверждение пароля</label><br>
+        <input class="form-control" type="password" name="RePassword" required="" placeholder="введите пароль еще раз"/><br>
+
+        <input class="btn btn-default" type="submit" value="Регистрация" />
+    </form>
+</div>
+

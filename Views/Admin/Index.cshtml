@@ -1,0 +1,45 @@
+﻿    @{
+        Layout = "~/Views/Shared/_Layout.cshtml";
+    }
+
+<font color="#1068af">
+    <h3 align="center">Админка</h3>
+</font>
+
+<p>Новости</p>
+<ul>
+    <li>
+        <a href="/News/CreateNews/">Создать новость</a>
+    </li>
+    <li>
+        <a href="/News/ListNews/">Список новостей</a>
+    </li>
+</ul>
+
+<p>Обратная связь</p>
+<ul>
+    <li>
+    <a href="/Feedback/IncomingMessages">Сообщения от пользователей </a>
+    @if (ViewBag.CountNewMessae != 0)
+    {
+        <b><span> + </span>@ViewBag.CountNewMessae</b>
+    }
+    </li>
+    <li><a href="/Feedback/HistoryAnswerAdminMessage">История сообщений</a></li>
+</ul>
+
+<p>Список курсов</p>
+<ul class="list">
+            @foreach (var b in ViewBag.CountThemas)
+            {
+                <li><a href="/Admin/Check/@b.IdLanguage">Курс: @b.Language</a>
+                    @if (b.CountThemas != 0)
+                    {
+                        <span>- </span>@b.CountThemas
+                    }
+                </li>
+            }
+</ul>
+   
+
+

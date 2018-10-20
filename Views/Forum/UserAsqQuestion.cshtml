@@ -1,0 +1,34 @@
+﻿@using jQuery.HtmlHelpers
+@model jQuery.Models.Pagination.QuestionsListViewModel
+@{
+    ViewBag.Title = "Вопросы и Ответы";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h3 class="name_page">Вопросы @Session["Login"]</h3>
+@{ int start = 0;}
+@foreach (var b in Model.AskQuestions)
+{
+    int check = 0;
+
+    for (int i = start; i < ViewBag.lenght; i++)
+    {
+        if (check > 0)
+        {
+            start++;
+            break;
+        }
+        <a href="/Forum/UserDiscussion/@b.Id">@b.Question <span> (ответов @ViewBag.Count[i]) </span></a>
+        check++;
+
+        if (Session["Id"] != null)
+        {
+            if (Session["Role"].ToString() == "user")
+            {
+                <span>( <a href="/Forum/UserEditAsqQuestion/@b.Id">редактировать</a> )</span><br />
+            }
+        }
+    }
+}
+
+<p class="pagelink" align="center">@Html.PageLinks(Model.PagingInfo, x => Url.Action("UserAsqQuestion", new { page = x, @class = "btn btn-default" }))</p>

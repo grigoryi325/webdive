@@ -1,0 +1,109 @@
+﻿<!DOCTYPE html>
+
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WebDive</title>
+    <link href="~/Content/bootstrap.css" rel="stylesheet" />
+    <link href="~/Content/styles.css" rel="stylesheet" />
+    <link href="~/Content/site_stile.css" rel="stylesheet" />
+    <script src="~/Scripts/jquery-3.2.1.js"></script>
+
+    <link rel="stylesheet" href="~/Scripts/code_style/styles/vs2015.css">
+    <script src="~/Scripts/code_style/highlight.pack.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+</head>
+<body>
+    <style>
+        .navigation {
+            float: right;
+        }
+
+            .navigation li {
+                display: inline-block;
+                margin-right: 10px;
+            }
+
+                .navigation li a {
+                    display: block;
+                    text-decoration: none;
+                    color: white;
+                    padding: 3px 5px;
+                    border-radius: 3px;
+                }
+
+                    .navigation li a:hover {
+                        border-bottom: 1px solid white;
+                        border-radius: 3px;
+                    }
+
+    </style>
+
+    <script>
+        //показуем статистику только администраторам
+        $(function () {
+            var role = $(".statistics").attr("id");
+            if (role != "admin") {
+                $(".statistics").hide();
+            } else {
+                $(".statistics").show();
+            }
+        });
+    </script>
+
+    <div class="body_container">
+        <div class="header">
+            <font color="white" size="5">WEBDIVE.COM.UA</font>
+            <ul class="navigation">
+                @if (Session["Id"] != null)
+                {
+                    if (Session["Role"].ToString() == "admin")
+                    {
+                        <li>@Html.ActionLink("Админ Панель", "Index", "Admin")</li>
+                        <li><a href="/Admin/EditAccount/@Session["Id"]" title="Редактировать аккаунт">Здравствуйте @Session["Login"]</a></li>
+                    }
+                    else if (Session["Role"].ToString() == "user")
+                    {
+                        /*<li>@Html.ActionLink("Личный кабинет", "Index", "Users")</li>*/
+                        <li><a href="/Forum/UserAsqQuestion/@Session["Id"]">Мои вопросы</a></li>
+                        <li><a href="/Account/EditAccount/@Session["Id"]" title="Редактировать аккаунт">Здравствуйте @Session["Login"]</a></li>
+
+                        @Html.Action("CountUserMessage", "Feedback")
+                    }
+                    <li><a href="/Account/DelSession/"> Выйти</a></li>
+                }
+                else
+                {
+                    <li>@Html.ActionLink("Регистрация", "RegisterUser", "Account")</li>
+                    <li>@Html.ActionLink("Вход", "Login", "Account")</li>
+                }
+            </ul>
+        </div>
+
+        <div class="menu">
+            @Html.Action("Menu", "Home")
+            
+            <!--LiveInternet counter-->
+            <div class="statistics" id="@Session["Role"]">
+            <hr>
+            <script type="text/javascript">
+                document.write("<a href='//www.liveinternet.ru/click' " +
+                    "target=_blank><img id='statistic' src='//counter.yadro.ru/hit?t25.6;r" +
+                    escape(document.referrer) + ((typeof (screen) == "undefined") ? "" :
+                        ";s" + screen.width + "*" + screen.height + "*" + (screen.colorDepth ?
+                            screen.colorDepth : screen.pixelDepth)) + ";u" + escape(document.URL) +
+                    ";h" + escape(document.title.substring(0, 150)) + ";" + Math.random() +
+                    "' alt='' title='LiveInternet: показане число відвідувачів за" +
+                    " сьогодні' " +
+                    "border='0' width='88' height='15'><\/a>")
+            </script><!--/LiveInternet-->
+            </div>
+        </div>
+
+        <div class="right"> @RenderBody()</div>
+        <!--<div class="footer"><font color="white" size="2">футер</font></div>  -->
+    </div>
+</body>
+</html>

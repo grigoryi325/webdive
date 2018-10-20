@@ -1,0 +1,20 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<h3 class="name_page">Новости</h3>
+<br>
+
+@foreach (var item in Model)
+{
+    if (item.Status == "Published" ) {
+        <p>
+            @Html.Raw(@item.Description)
+            @item.DateTime.ToString("g")
+        </p>
+        <br>
+    }
+}

@@ -1,0 +1,19 @@
+﻿
+@{
+    ViewBag.Title = "HistoryAnswerAdminMessage";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h3 class="name_page">История сообщений</h3>
+
+@foreach (var item in Model)
+{
+    <div style="background-color: #e5e5e5; border:none;" class="alert alert-success" role="alert">
+        <h4><i>@item.EmailUser</i><br> <b> @item.Thema</b></h4>
+        <p>@item.Description</p>
+        <hr>
+
+        <h4 class="alert-heading">Ответ от администратора : @item.AdminEmail</h4>
+        <p>@item.ADescription</p>
+    </div>
+}

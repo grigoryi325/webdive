@@ -1,0 +1,22 @@
+﻿@{
+    ViewBag.Title = "IncomingMessages";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2 class="name_page">Входящие сообщения</h2>
+
+<table>
+    @foreach (var count in ViewBag.CountMessage)
+    {
+        <tr>
+            <td>
+                <a href="/Feedback/AnswerMessage/@count.IdCategory">@count.CategoryMessage</a>
+
+                @if (count.CountMessageInCategory != 0)
+                {
+                    <b>+ @count.CountMessageInCategory </b>
+                }
+            </td>
+        </tr>
+    }
+</table>

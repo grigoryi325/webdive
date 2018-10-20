@@ -1,0 +1,192 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<style>
+    .del {
+        color: red
+    }
+
+    #no {
+        margin-left: 367px;
+    }
+
+    .del {
+        color: red;
+        cursor: pointer;
+    }
+
+    .del:hover {
+        color: #c62424;
+    }
+
+    #window {
+        width: 412px;
+        height: 162px;
+        border: 2px solid grey;
+        background-color: white;
+        position: absolute;
+        padding: 3px;
+        top: -1000px;
+    }
+
+    #ok {
+        margin-left: 160px;
+    }
+
+    table {
+        border: 2px solid #d9edf7;
+        background-color: #eeeeee6e;
+    }
+
+    td, th {
+        padding: 10px;
+        border: 1px solid #337ab74d;
+    }
+
+    .idthema {
+        visibility: hidden;
+    }
+</style>
+
+<script>
+    $(function () {
+        //при загрузки страницы предупреждение о удаленнии невидимо
+        $('#window').hide();
+        //обработчик события клик для кнопки удаления канала
+        $('.del').click(function (event) {
+            var pos = $(this).offset();
+            var elem_top = pos.top - 70;
+            var result_position = elem_top + "px";
+
+            var width_window = $('body').width();
+            var margin = (width_window / 2) - 360;
+            var margin_left = margin + "px";
+
+            $('#window').css({ 'top': result_position, 'left': margin_left }).slideDown(500);
+
+            //узнаем id канала по которому кликнули
+            var idthema = event.target.id;
+            //обработчик события для кнопки подтверждения удаления канала
+            $('#ok').click(function () {
+                //формируем гет запрос на удаление темы
+                var url = "http://webdive.com.ua/Admin/Delete/" + idthema;
+                //отправляем запрос и перегружаем страницу
+                location.href = url;
+            });
+            //кнопка закрытия сообщения
+            $('#no').click(function () {
+                $('#window').slideUp(500);
+            });
+        });
+
+        /*$("table #row").each(function(obj) {
+            if($("#status").text() == "Published") {
+                $(this).css({ backgroundColor: '#4caf5057' });
+            } 
+        });*/
+            
+    });
+</script>
+
+<div id="window">
+    <input type="button" class="btn btn-danger" id="no" value="X">
+    <font color="red"><h4 align="center">Вы уверены что хотите удалить эту тему?</h4></font>
+    <br>
+    <input type="button" class="btn btn-default" id="ok" value="удалить">
+</div>
+
+<font color="#1068af">
+    <h3 align="center">Admin Panel</h3>
+    <h4 align="center">@ViewBag.language_name.Language_Name</h4>
+</font>
+<p align="center"><a class="next" href="/Admin/Index">на главную</a></p>
+
+<table width="100%" align="center">
+    <tr>
+        <th>Название темы</th>
+        <th>Теория</th>
+        <th>Тест</th>
+        <th>Обьяснение материала</th>
+        <th>Опубликовать</th>
+        <th width="50px">Удаление</th>
+    </tr>
+    @foreach (var b in ViewBag.check)
+    {
+    <tr id="row">
+        <td>
+            @if (b.Name != null)
+            {
+                @b.Name<br>
+                <a class="edit" href="/Admin/EditThema/@b.Id">Редактировать</a>
+            }
+            else
+            {
+                <a class="create" href="/Admin/CreateThema/@b.Id">Создать тему</a>
+            }
+
+        </td>
+        <td>
+
+            @if (@b.CkTeoria == "Ok")
+            {
+                @b.CkTeoria<br>
+                <a class="edit" href="/Admin/EditTeoria/@b.Id">Редактировать</a>
+            }
+            else
+            {
+                <a class="create" href="/Admin/CreateTeoria/@b.Id">Создать</a>
+            }
+
+        </td>
+        <td>
+            @if (@b.CkTest == "Ok")
+            {
+                @b.CkTest<br>
+                 <a class="edit" href="/Admin/EditTest/@b.Id">Редактировать</a>
+            }
+            else
+            {
+                <a class="create" href="/Admin/CreateTest/@b.Id">Создать</a>
+            }
+
+        </td>
+        <td>
+            @if (@b.CkExplanation == "Ok")
+            {
+                @b.CkExplanation<br>
+                 <a class="edit" href="/Admin/EditExplanation/@b.Id">Редактировать</a>
+            }
+            else
+            {
+                 <a class="create" href="/Admin/CreateExplanation/@b.Id">Создать</a>
+            }
+        </td>
+
+        <td>
+            @if (b.ControlCheck == null)
+            {
+                <span id="status">In-progress</span><br>
+                <a class="publish" href="/Admin/PublishedThemas/?status=@b.Id">Опубликовать</a>
+            }
+            else
+            {
+                <span id="status">Published</span><br>
+                <a class="publish" href="/Admin/CallAway/?status=@b.Id">Отозвать</a>
+            }
+        </td>
+
+        <td align="center">
+            <i class="del" id="@b.Id">Удалить</i>
+        </td>
+
+    </tr>
+    }
+    <tr>
+        <td colspan="6" align="center">
+            <a class="create" href="/Admin/CreateThema/@ViewBag.id_language">Создать тему</a>
+        </td>
+    </tr>
+</table>
+
+
+

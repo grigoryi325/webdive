@@ -1,0 +1,57 @@
+﻿@model jQuery.Models.Thema
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>CteateThema</title>
+    <link href="~/Content/bootstrap.css" rel="stylesheet" />
+    <link href="~/Content/styles.css" rel="stylesheet" />
+    <style>
+        #Name{
+            width: 95%;
+        }
+
+        #Language{
+            width:200px;
+        }
+
+        .content {
+            width: 800px;
+            margin: auto 20%;
+        }
+        ul {
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="content">
+        <ul type="circle">
+            <li type="disc">Создание темы</li>
+            <li>Создание теории</li>
+            <li>Создание теста</li>
+            <li>Создание обьяснения</li>
+        </ul>
+        <hr>
+        <font color="#1068af">
+            <h3 align="center">Создание темы</h3>
+        </font>
+        <form method="post" action="/Admin/CteateThema">
+            <input type="hidden" name="CkName" value="Ok">
+            <!--<input type="hidden" name="Id">-->
+            <label>Выберіть мову</label>
+            @Html.DropDownListFor(model => model.LanguageId, ViewBag.Language as SelectList, new { @class = "form-control", @id = "Language" })<br>
+            <label for="Name">Введіть імя теми:</label><br><br>
+            <input class="form-control" type="text" name="Name" id="Name" /><br><br>
+
+            <input class="btn btn-success" type="submit" value="Создать" />
+        </form><br>
+        <a style="" class="edit" href="/Admin/Index">Назад</a>
+    </div>
+</body>
+</html>

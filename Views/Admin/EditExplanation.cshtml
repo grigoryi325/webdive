@@ -1,0 +1,44 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>EditExplanation</title>
+    <link href="~/Content/bootstrap.css" rel="stylesheet" />
+    <link href="~/Content/styles.css" rel="stylesheet" />
+    <script src="~/Scripts/ckeditor/ckeditor.js"></script>
+    <style>
+        #Id {
+            visibility: hidden;
+        }
+    </style>
+</head>
+<body>
+
+    <script>CKEDITOR.config.height = 600;</script>
+
+    <br>
+    <font color="#1068af">
+        <h3 align="center">Редактирование обьяснения материала</h3>
+    </font>
+    <form method="post" action="/Admin/EditExplanation">
+        <input type="text" name="Id" id="Id" value="@ViewBag.explanation.Id">
+        <textarea name="Description" id="editor2">
+            @ViewBag.explanation.Description
+        </textarea>
+
+        <script>
+            CKEDITOR.replace('editor2');
+        </script>
+        <br>
+        <input style="margin-left:10px;" class="btn btn-success" type="submit" id="submit" value="Зберегти">
+    </form>
+    <br>
+    <a style="margin-left:10px;" class="edit" href="/Admin/Index">Назад</a>
+</body>
+</html>

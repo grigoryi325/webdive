@@ -1,0 +1,41 @@
+﻿
+@{
+    ViewBag.Title = "ListThemas";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+@if (ViewBag.language != null)
+{
+    <h3 class="name_page">Курс по @ViewBag.language.Language_Name</h3>
+}
+
+
+<a class="next" href="/Forum/Index/@ViewBag.language.Id">К курсам</a><br><br>
+
+@if (ViewBag.Check != null)
+{
+    int start = 0;
+    <ol>
+        @foreach (var item in ViewBag.Check)
+        {
+            if ((@item.ControlCheck != null) || (Session["Role"] == "admin"))
+            {
+                int check = 0;
+                for (int i = start; i < ViewBag.lenght; i++)
+                {
+                    if (check > 0)
+                    {
+                        start++;
+                        break;
+                    }
+                <li><a href="/Forum/AsqQuestion/@item.Id">@item.Name <span> (вопросов без ответов @ViewBag.Count[i]) </span></a></li>
+                check++;
+                }
+            }
+        }
+    </ol>
+}
+
+
+

@@ -1,0 +1,39 @@
+﻿@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>EditTeoria</title>
+    <link href="~/Content/bootstrap.css" rel="stylesheet" />
+    <link href="~/Content/styles.css" rel="stylesheet" />
+    <script src="~/Scripts/ckeditor/ckeditor.js"></script>
+</head>
+<body>
+
+    <script>CKEDITOR.config.height = 600;</script>
+
+    <br>
+    <font color="#1068af">
+        <h3 align="center">Теорія</h3>
+    </font>
+    <xml>
+        <form method="post" action="/Admin/EditTeoria">
+            <input type="hidden" name="Id" id="Id" value="@ViewBag.teoria.Id">
+            <textarea name="Description" id="editor2">
+            @ViewBag.teoria.Description
+        </textarea>
+
+            <script>
+                CKEDITOR.replace('editor2');
+            </script>
+            <br>
+            <input style="margin-left:10px;" class="btn btn-success" type="submit" id="submit" value="Сохранить">
+        </form>
+    </xml><br>
+    <a style="margin-left:10px;" class="edit" href="/Admin/Index">Назад</a>
+</body>
+</html>

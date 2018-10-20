@@ -1,0 +1,27 @@
+﻿
+@if (ViewBag.language != null)
+{
+    <h3 class="name_page">Курс по @ViewBag.language.Language_Name</h3>
+}
+
+@if (ViewBag.Check != null) {
+    <ol>
+        @foreach (var item in ViewBag.Check)
+        {
+            if ((@item.ControlCheck != null) || (Session["Role"] == "admin"))
+            {
+                <li>
+                    <a href="/Home/Teoria/@item.Id">@item.Name</a><br>
+
+                    @if (Session["Role"] == "admin")
+                    {
+                        <a class="next" href="/Home/Test/@item.Id">Тест</a>
+                        <a class="next" href="/Home/Explanation/@item.Id">Объяснение</a>
+                        <a class="edit" href="/Admin/EditThema/@item.Id">Редактировать</a>
+                    }
+                </li>
+            }
+        }
+    </ol>
+}
+

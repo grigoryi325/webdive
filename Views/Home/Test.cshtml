@@ -1,0 +1,192 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<style>
+    .message {
+        color: red;
+    }
+
+    #window {
+        width: 400px;
+        height: 108px;
+        border: 2px solid grey;
+        background-color: white;
+        position: absolute;
+        top: -1000px;
+        left: 43%;
+        margin: -125px 0 0 -125px;
+    }
+
+    #ok {
+        border: 1px solid grey;
+        cursor: pointer;
+        width: 50px;
+        margin-left: 175px;
+    }
+
+    .idtest {
+        visibility: hidden;
+    }
+
+    .content {
+        width: 1000px;
+        margin: auto 15%;
+    }
+
+    #result {
+        cursor: pointer;
+        background-color: #e5e5e5;
+        border-radius: 5px;
+        color: black;
+        padding: 5px 9px;
+        width: 60px;
+        height: 30px;
+    }
+
+        #result:hover {
+            background-color: #bdbdbd;
+        }
+</style>
+
+<script>
+    $(function () {
+        $('#window').hide();
+
+        $('#ok').click(function () {
+            var idteoria = $('.idtest').attr("id");
+            if ($(".message").text() == "К сожалению Вы не прошли тест, повторите теорию и попробуйте снова.") {
+                var url = "http://webdive.com.ua/Home/Teoria/" + idteoria;
+                location.href = url;
+
+            } else if ($('.message').text() == "Отлично, тест пройден!") {
+                var url = "http://webdive.com.ua/Home/Explanation/" + idteoria;
+                location.href = url;
+            } else {
+                $('#window').hide();
+                location.reload();
+            }
+        });
+
+        var result = 0;
+        var count = 0;
+        var check = true;
+
+        $('#result').click(function () {
+
+            $('input[type=checkbox]').each(function () {
+
+                if ($(this).is(':checked')) {
+
+                    if ($(this).attr("id") == 'on') {
+                        result++;
+                    }
+                    count++;
+                }
+            });
+
+            if (count > 5) {
+                $('#window').css({ top: '64%' }).slideDown(500);
+                check = false;
+            }
+
+            if (count < 5) {
+
+                $('.message').text('Вы выбрали менее 5 вариантов ответов !');
+                $('#window').css({ top: '64%', border: '2px solid red' }).slideDown(500);
+                check = false;
+            }
+
+            if ((check == true) && (result > 3)) {
+                $('.message').text('Отлично, тест пройден!');
+                $('#window').css({ top: '64%' }).slideDown(500);
+            }
+
+            if ((check == true) && (result < 4)) {
+                $('.message').text('К сожалению Вы не прошли тест, повторите теорию и попробуйте снова.');
+                $('#ok').css({
+                    width: '50px',
+                    marginLeft: '160px'
+                }).text('Перейти до теорії');
+                $('#window').css({
+                    top: '64%',
+                    border: '2px solid red',
+                    height: '140px',
+                    padding: '10px'
+                }).slideDown(500);
+            }
+        });
+    });
+</script>
+
+@if (Session["Role"] != "admin")
+{
+    <script type="text/javascript">
+        document.ondragstart = noselect;
+        // запрет на перетаскивание
+        document.onselectstart = noselect;
+        // запрет на выделение элементов страницы
+        document.oncontextmenu = noselect;
+        // запрет на выведение контекстного меню
+        function noselect() { return false; }
+    </script>
+}
+
+@if ((@ViewBag.Check.ControlCheck != null) || (Session["Role"] == "admin"))
+{
+
+    <font color="#1068af">
+        <h3 align="center">Тест</h3>
+        <h4 align="center">@ViewBag.Thema.Name</h4>
+    </font>
+    <br>
+    <p><b><i>Выберите 5 правильных утверждений:</i></b></p>
+
+
+    if (ViewBag.Test.One == null)
+    {
+        <p class="message">Тест к данной теме находится в разработке...</p>
+    }
+    else
+    {
+        <form method="post" action="/Home/Test">
+            <input class="input" type="checkbox" name="AnswerOne" id="@ViewBag.Answer.AnswerOne">@ViewBag.Test.One<br>
+            <input class="input" type="checkbox" name="AnswerTwo" id="@ViewBag.Answer.AnswerTwo">@ViewBag.Test.Two<br>
+            <input class="input" type="checkbox" name="AnswerThree" id="@ViewBag.Answer.AnswerThree">@ViewBag.Test.Three<br>
+            <input class="input" type="checkbox" name="AnswerFour" id="@ViewBag.Answer.AnswerFour">@ViewBag.Test.Four<br>
+            <input class="input" type="checkbox" name="AnswerFive" id="@ViewBag.Answer.AnswerFive">@ViewBag.Test.Five<br>
+            <input class="input" type="checkbox" name="AnswerSix" id="@ViewBag.Answer.AnswerSix">@ViewBag.Test.Six<br>
+            <input class="input" type="checkbox" name="AnswerSeven" id="@ViewBag.Answer.AnswerSeven">@ViewBag.Test.Seven<br>
+            <input class="input" type="checkbox" name="AnswerEight" id="@ViewBag.Answer.AnswerEight">@ViewBag.Test.Eight<br>
+            <input class="input" type="checkbox" name="AnswerNine" id="@ViewBag.Answer.AnswerNine">@ViewBag.Test.Nine<br>
+            <input class="input" type="checkbox" name="AnswerTen" id="@ViewBag.Answer.AnswerTen">@ViewBag.Test.Ten<br>
+        </form>
+    }
+
+    <br>
+    <div style="display:block">
+        @if (Session["Role"] == "admin")
+        {
+            <p><a class="edit" href="/Admin/EditTest/@ViewBag.Test.Id">Редактировать</a></p>
+            <p><a class="next" href="/Home/Index">На главную</a></p>
+            <p><a class="next" href="/Home/Explanation/@ViewBag.Test.Id">Далее</a></p>
+        }
+        else if (ViewBag.Test.One == null)
+        {
+            <p><a href="/Home/Index">На главную</a></p>
+            <p><a class="next" href="/Home/Explanation/@ViewBag.Test.Id">Далее</a></p>
+        }
+        else
+        {
+            <p id="result" class="next" style="cursor:pointer;">Далее</p>
+            <p><a class="next" href="/Home/Index">На главную</a></p>
+        }
+        <p class="idtest" id="@ViewBag.Answer.Id">
+    </div>
+
+
+    <div id="window">
+        <font color="red"><h4 class="message" align="center">Вы выбрали более 5 вариантов ответов !!!</h4></font>
+        <br>
+        <input id="ok" type="button" class="btn btn-default" value="ok" />
+    </div>
+}

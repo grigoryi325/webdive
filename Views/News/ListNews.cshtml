@@ -1,0 +1,111 @@
+﻿@{
+    ViewBag.Title = "PreviewNews";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<style>
+    #window {
+        width: 412px;
+        height: 162px;
+        border: 2px solid grey;
+        background-color: white;
+        position: absolute;
+        padding: 3px;
+        top: -1000px;
+    }
+
+    #ok {
+        margin-left: 160px;
+    }
+
+    #no {
+        margin-left: 367px;
+    }
+
+    .del {
+        color: red;
+        cursor: pointer;
+    }
+
+    .del:hover {
+        color: #c62424;
+    }
+</style>
+
+<script>
+    $(function () {
+        //при загрузки страницы предупреждение о удаленнии невидимо
+        $('#window').hide();
+        //обработчик события клик для кнопки удаления канала
+        $('.del').click(function (event) {
+            var pos = $(this).offset();
+            var elem_top = pos.top - 70;
+            var result_position = elem_top + "px";
+
+            var width_window = $('body').width();
+            var margin = (width_window / 2) - 360;
+            var margin_left = margin + "px";
+
+            $('#window').css({ 'top': result_position, 'left': margin_left }).slideDown(500);
+
+            //узнаем id новости по которой кликнули
+            var idnews = event.target.id;
+            //обработчик события для кнопки подтверждения удаления канала
+            $('#ok').click(function () {
+                //формируем гет запрос на удаление темы
+                var url = "http://webdive.com.ua/News/DeleteNews/" + idnews;
+                //отправляем запрос и перегружаем страницу
+                location.href = url;
+            });
+            //кнопка закрытия сообщения
+            $('#no').click(function () {
+                $('#window').slideUp(500);
+            });
+        });
+
+        /*$("table #row").each(function(obj) {
+            if($("#status").text() == "Published") {
+                $(this).css({ backgroundColor: '#4caf5057' });
+            }
+        });*/
+
+    });
+</script>
+
+<div id="window">
+    <input type="button" class="btn btn-danger" id="no" value="X">
+    <font color="red"><h4 align="center">Вы уверены что хотите удалить эту новость?</h4></font>
+    <br>
+    <input type="button" class="btn btn-default" id="ok" value="удалить">
+</div>
+
+<font color="#1068af">
+    <h3 align="center">Публикация новости</h3>
+</font>
+<br>
+
+@foreach (var item in Model)
+{
+    if (item.Status == "Published")
+    {
+        <p class="pablished">
+            @Html.Raw(@item.Description)
+            @item.DateTime.ToString("g")
+            <a class="edit" href="/News/EditNews/@item.Id">Редактировать</a>
+            <a class="publish" href='/News/CallAwayNews/@item.Id'>Отозвать</a>
+        </p>
+        <br>
+    }
+    else
+    {
+        <p class="previous">
+            @Html.Raw(@item.Description)
+            @item.DateTime.ToString("g")
+            <i class="del" id="@item.Id">Удалить</i>
+            <a class="edit" href="/News/EditNews/@item.Id">Редактировать</a>
+            <a class="publish" href='/News/PublishedNews/@item.Id'>Опубликовать</a>
+        </p>
+        <br>
+    }
+}
+

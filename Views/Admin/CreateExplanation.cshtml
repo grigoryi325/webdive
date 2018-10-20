@@ -1,0 +1,52 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>CreateExplanation</title>
+    <link href="~/Content/bootstrap.css" rel="stylesheet" />
+    <link href="~/Content/styles.css" rel="stylesheet" />
+    <script src="~/Scripts/ckeditor/ckeditor.js"></script>
+    <style>
+        #Explanation {
+            visibility: hidden;
+        }
+
+        ul {
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+
+    <script>CKEDITOR.config.height = 600;</script>
+
+    <ul type="circle">
+        <li>Создание темы</li>
+        <li>Создание теории</li>
+        <li>Создание теста</li>
+        <li type="disc">Создание обьяснения</li>
+    </ul>
+    <hr>
+    <font color="#1068af">
+        <h3 align="center">Создание обьяснения</h3>
+    </font>
+    <form method="post" action="/Admin/CreateExplanation">
+        <input type="hidden" name="CkExplanation" value="Ok">
+        <input type="hidden" name="Id" value="@ViewBag.IdExplanation">
+        <textarea name="Description" id="editor1"></textarea>
+
+        <script>
+            CKEDITOR.replace('editor1');
+        </script>
+        <br>
+        <input style="margin-left:10px;" class="btn btn-success" type="submit" value="Создать">
+    </form><br>
+    <a style="margin-left:10px;" class="edit" href="/Admin/Index">Назад</a>
+</body>
+</html>

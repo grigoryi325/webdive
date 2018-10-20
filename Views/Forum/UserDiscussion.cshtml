@@ -1,0 +1,114 @@
+﻿@using jQuery.HtmlHelpers
+@model jQuery.Models.Pagination.PostsListViewModel
+@{
+    ViewBag.Title = "UserDiscussion";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<style>
+    #window {
+        width: 412px;
+        height: 162px;
+        border: 2px solid grey;
+        background-color: white;
+        position: absolute;
+        padding: 3px;
+        top: -1000px;
+    }
+
+    #ok {
+        margin-left: 160px;
+    }
+
+    #no {
+        margin-left: 367px;
+    }
+
+    .delete,
+    .editt {
+        color: grey;
+        cursor: pointer;
+    }
+
+        .delete:hover,
+        .editt:hover {
+            color: grey;
+            border-bottom: 1px solid grey;
+        }
+
+    .login_form {
+        width: 600px;
+        margin: 0 auto;
+    }
+</style>
+<script>
+    $(function () {
+        //при загрузки страницы предупреждение о удаленнии невидимо
+        $('#window').hide();
+        //обработчик события клик для кнопки удаления канала
+        $('.delete').click(function (event) {
+            var pos = $(this).offset();
+            var elem_top = pos.top - 70;
+            var result_position = elem_top + "px";
+
+            var width_window = $('body').width();
+            var margin = (width_window / 2) - 420;
+            var margin_left = margin + "px";
+
+            $('#window').css({ 'top': result_position, 'left': margin_left }).slideDown(500);
+
+            //узнаем id новости по которой кликнули
+            var id = event.target.id;
+            var id_page = $(event.target).attr("idpage");
+            //обработчик события для кнопки подтверждения удаления канала
+            $('#ok').click(function () {
+                //формируем гет запрос на удаление темы
+                var url = "http://webdive.com.ua/Forum/UserDelMessage/" + id + "?id_page=" + id_page;
+                //var url = "http://localhost:24895/Forum/UserDelMessage/" + id + "?id_page=" + id_page;
+                //отправляем запрос и перегружаем страницу
+                location.href = url;
+            });
+            //кнопка закрытия сообщения
+            $('#no').click(function () {
+                $('#window').slideUp(500);
+            });
+        });
+    });
+</script>
+
+<div id="window">
+    <input type="button" class="btn btn-danger" id="no" value="X">
+    <font color="red"><h4 align="center">Вы уверены что хотите удалить это сообщение?</h4></font>
+    <br>
+    <input type="button" class="btn btn-default" id="ok" value="удалить">
+</div>
+
+
+<h3 class="name_page">Ответы</h3>
+<br>
+
+@Html.Action("UserDescriptionQuestion", "Forum")
+
+@foreach (var item in Model.Talkings)
+{
+    <span>@item.LoginUser - </span><i> @item.DateTime.ToString("g") </i>
+
+    if (Session["Id"] != null)
+    {
+        if (Session["Role"].ToString() == "user")
+        {
+            if ((item.UserId.ToString() == Session["Id"].ToString()) && (item.Status != "blocked"))
+            {
+                <span>(</span>
+                <a class="editt" href="/Forum/UserEditMessage/@item.Id">Редактировать</a>
+                <i class="delete" id="@item.Id" idpage="@ViewBag.IdQuestion">удалить</i>
+                <span>)</span>
+            }
+        }
+    }
+    <p><pre>@item.Text</pre></p><br>
+}
+
+<a class="next" href='/Forum/UserAsqQuestion/@Session["Id"]?page=@Session["user_page"]'>к вопросам</a>
+
+<p class="pagelink" align="center">@Html.PageLinks(Model.PagingInfo, x => Url.Action("UserDiscussion", new { page = x, @class = "btn btn-default" }))</p>

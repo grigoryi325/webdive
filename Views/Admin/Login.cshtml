@@ -1,0 +1,48 @@
+﻿
+@{
+    ViewBag.Title = "Login";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<script>
+    $(function () {
+        $(function () {
+            $("#errors li").each(function () {
+                if ($(this).text() == "") {
+                    $(this).hide();
+                } else {
+                    $(this).show();
+                }
+            });
+        });
+    });
+</script>
+
+<style>
+    .login_form {
+        width: 350px;
+        margin: 0 auto;
+    }
+
+    #errors li {
+        font-weight: bold;
+        color: #f00;
+    }
+</style>
+<div class="login_form">
+    <h3 style="text-align:center; margin-bottom: 27px;" class="name_page">Вход для администраторов</h3>
+
+    <ul id="errors">
+        <li>@ViewBag.ErrorLogin</li>
+    </ul>
+
+    <form method="post" action="/Admin/Login">
+        <label>Логин</label><br>
+        <input class="form-control" type="text" required="" placeholder="введите логин" name="LoginAdmin" /><br>
+
+        <label>Пароль</label><br>
+        <input class="form-control" type="password" required="" placeholder="введите пароль" name="Password" /><br>
+
+        <input class="btn btn-default" type="submit" value="Вход">
+    </form>
+</div>

@@ -1,0 +1,25 @@
+﻿
+@{
+    ViewBag.Title = "PublicNews";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<script src="~/Scripts/ckeditor/ckeditor.js"></script>
+
+<script> CKEDITOR.config.height = 550;</script>
+
+<font color="#1068af">
+    <h3 align="center">Создание новости</h3>
+</font>
+<br>
+
+<form method="post" action="/News/CreateNews">
+    <textarea name="Description" id="editor2"></textarea>
+
+    <script>
+            CKEDITOR.replace('editor2');
+    </script>
+    <br>
+    <input style="margin-left:10px;" class="btn btn-success" type="submit" id="submit" value="Создать">
+</form><br>
+<a style="margin-left:10px;" class="edit" href="/Admin/Index">Назад</a>

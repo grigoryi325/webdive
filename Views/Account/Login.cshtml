@@ -1,0 +1,53 @@
+﻿@model jQuery.Models.AccountModels.User
+@{
+    ViewBag.Title = "Login";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<style>
+    .login_form {
+        width: 350px;
+        margin: 0 auto;
+    }
+
+    #errors li {
+        font-weight: bold;
+        color: #f00;
+    }
+</style>
+
+<script>
+    $(function () {
+        $(function () {
+            $("#errors li").each(function () {
+                if ($(this).text() == "") {
+                    $(this).hide();
+                } else {
+                    $(this).show();
+                }
+            });
+        });
+    });
+</script>
+
+
+<div class="login_form">
+    <h3 style="text-align:center;" class="name_page">Вход</h3>
+    <h4 class="message_page">Если вы зарегистрировались ввойдите в свой аккаунт</h4>
+
+    <form method="post" action="/Account/Login">
+
+        <ul id="errors">
+            <li>@ViewBag.ErrorLogin</li>
+        </ul>
+
+        <label>Логин</label>
+        <input class="form-control" type="text" required="" placeholder="введите логин" name="LoginUser" /><br>
+
+        <label>Пароль</label><br>
+        <input class="form-control" type="password" required="" placeholder="введите пароль" name="Password" /><br>
+
+        <input class="btn btn-default" type="submit" value="Вход">
+    </form>
+</div>
+

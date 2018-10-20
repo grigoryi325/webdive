@@ -1,0 +1,29 @@
+﻿@model jQuery.Models.ForumModels.AskQuestion
+@{
+    ViewBag.Title = "EditAsqQuestion";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<style>
+    .login_form {
+        width: 400px;
+    }
+</style>
+
+<h3 class="name_page">Редактирование вопроса</h3>
+
+<div class="login_form">
+    <form method="post" action="/Forum/EditAsqQuestion">
+        <input type="hidden" name="Id" value="@Model.Id" />
+        <input type="hidden" name="UserId" value="@Model.UserId" />
+        <input type="hidden" name="ThemaId" value="@Model.ThemaId" />
+
+        <label>Вопрос</label>
+        <input class="form-control" type="text" name="Question" value="@Model.Question" required=""/><br>
+
+        <label>Описание вопроса</label>
+        <textarea class="form-control" name="Description" rows="15" required="">@Model.Description</textarea><br>
+
+        <input class="btn btn-default" type="submit" value="сохранить" />
+    </form>
+</div>

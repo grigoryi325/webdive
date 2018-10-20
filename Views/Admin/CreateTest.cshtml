@@ -1,0 +1,88 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>CreateTest</title>
+    <link href="~/Content/bootstrap.css" rel="stylesheet" />
+    <link href="~/Content/styles.css" rel="stylesheet" />
+    <style>
+        .num {
+            
+            margin-left: 5px;
+        }
+
+        #Test {
+            visibility: hidden;
+        }
+
+        ul {
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <ul type="circle">
+        <li>Создание темы</li>
+        <li>Создание теории</li>
+        <li type="disc">Создание теста</li>
+        <li>Создание обьяснения</li>
+    </ul>
+    <hr>
+    <font color="#1068af">
+        <h2 align="center">Создание теста</h2>
+    </font>
+    <form method="post" action="/Admin/CreateTest">
+        <input type="hidden" name="CkTest" value="Ok">
+        <input type="hidden" name="Id" value="@ViewBag.IdTest">
+        <label class="num">1</label>
+        <input type="checkbox" style="margin-bottom: 16px; margin-top:8px;" name="AnswerOne" id="AnswerOne">
+        <input class="form-control" style="width:95%; float:right; margin-right:20px; height:30px; font-size: 20px;" type="text" name="One" id="One">
+        <br>
+        <label class="num">2</label>
+        <input type="checkbox" style="margin-bottom: 16px; margin-top:8px;" name="AnswerTwo" id="AnswerTwo">
+        <input class="form-control" style="width:95%; float:right; margin-right:20px; height:30px; font-size: 20px;" type="text" name="Two" id="Two">
+        <br>
+        <label class="num">3</label>
+        <input type="checkbox" style="margin-bottom:16px; margin-top:8px;" name="AnswerThree" id="AnswerThree">
+        <input class="form-control" style="width:95%; float:right; margin-right:20px; height:30px; font-size: 20px;;" type="text" name="Three" id="Three">
+        <br>
+        <label class="num">4</label>
+        <input type="checkbox" style="margin-bottom:16px; margin-top:8px;" name="AnswerFour" id="AnswerFour">
+        <input class="form-control" style="width:95%; float:right; margin-right:20px; height:30px; font-size: 20px;" type="text" name="Four" id="Four">
+        <br>
+        <label class="num">5</label>
+        <input type="checkbox" style="margin-bottom:16px; margin-top:8px;" name="AnswerFive" id="AnswerFive">
+        <input class="form-control" style="width:95%; float:right; margin-right:20px; height:30px; font-size: 20px;" type="text" name="Five" id="Five">
+        <br>
+        <label class="num">6</label>
+        <input type="checkbox" style="margin-bottom:16px; margin-top:8px;" name="AnswerSix" id="AnswerSix">
+        <input class="form-control" style="width:95%; float:right; margin-right:20px; height:30px; font-size: 20px;" type="text" name="Six" id="Six">
+        <br>
+        <label class="num">7</label>
+        <input type="checkbox" style="margin-bottom:16px; margin-top:8px;" name="AnswerSeven" id="AnswerSeven">
+        <input class="form-control" style="width:95%; float:right; margin-right:20px; height:30px; font-size: 20px;" type="text" name="Seven" id="Seven">
+        <br>
+        <label class="num">8</label>
+        <input type="checkbox" style="margin-bottom:16px; margin-top:8px;" name="AnswerEight" id="AnswerEight">
+        <input class="form-control" style="width:95%; float:right; margin-right:20px; height:30px; font-size: 20px;" type="text" name="Eight" id="Eight">
+        <br>
+        <label class="num">9</label>
+        <input type="checkbox" style="margin-bottom:16px; margin-top:8px;" name="AnswerNine" id="AnswerNine">
+        <input class="form-control" style="width:95%; float:right; margin-right:20px; height:30px; font-size: 20px;" type="text" name="Nine" id="Nine">
+        <br>
+        <label style="margin-right:-5px;" class="num">10</label>
+        <input type="checkbox" name="AnswerTen" id="AnswerTen">
+        <input class="form-control" style="width:95%; float:right; margin-right:20px; height:30px; font-size: 20px;" type="text" name="Ten" id="Ten">
+        <br>
+        <br>
+        <input style="margin-left:10px;" class="btn btn-success" type="submit" id="submit" value="Создать">
+    </form><br>
+    <a style="margin-left:10px;" class="edit" href="/Admin/Index">Назад</a>
+</body>
+</html>

@@ -1,0 +1,88 @@
+﻿@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>EditTest</title>
+    <link href="~/Content/bootstrap.css" rel="stylesheet" />
+    <link href="~/Content/styles.css" rel="stylesheet" />
+    <style>
+        #Id {
+            visibility: hidden;
+        }
+
+        .blok1, block2 {
+            display: inline-block;
+        }
+
+        .blok1 {
+            width: 100%;
+            margin-left: 30px;
+        }
+
+        .blok2 {
+            margin-top: -301px;
+            margin-left: 10px;
+        }
+
+        .blok1 input {
+            width: 100%;
+           
+            margin-bottom: -20px;
+        }
+
+        .blok2 input {
+            height: 20px;
+        }
+
+        .content {
+            width: 97%;
+            margin: auto 0%;
+        }
+    </style>
+</head>
+<body>
+    <div class="content">
+        <font color="#1068af">
+            <h2 align="center">Редактирование теста</h2>
+        </font>
+        <font>
+            <form method="post" action="/Admin/EditTest">
+                <input type="text" name="Id" id="Id" value="@ViewBag.Test.Id" /><br>
+                <div class="blok1">
+                    <input class="form-control" style="height:30px; font-size: 20px;" type="text" name="One" value="@ViewBag.Test.One" /><br>
+                    <input class="form-control" style="height:30px; font-size: 20px;" type="text" name="Two" value="@ViewBag.Test.Two" /><br>
+                    <input class="form-control" style="height:30px; font-size: 20px;" type="text" name="Three" value="@ViewBag.Test.Three" /><br>
+                    <input class="form-control" style="height:30px; font-size: 20px;" type="text" name="Four" value="@ViewBag.Test.Four" /><br>
+                    <input class="form-control" style="height:30px; font-size: 20px;" type="text" name="Five" value="@ViewBag.Test.Five" /><br>
+                    <input class="form-control" style="height:30px; font-size: 20px;" type="text" name="Six" value="@ViewBag.Test.Six" /><br>
+                    <input class="form-control" style="height:30px; font-size: 20px;" type="text" name="Seven" value="@ViewBag.Test.Seven" /><br>
+                    <input class="form-control" style="height:30px; font-size: 20px;" type="text" name="Eight" value="@ViewBag.Test.Eight" /><br>
+                    <input class="form-control" style="height:30px; font-size: 20px;" type="text" name="Nine" value="@ViewBag.Test.Nine" /><br>
+                    <input class="form-control" style="height:30px; font-size: 20px;" type="text" name="Ten" value="@ViewBag.Test.Ten" /><br>
+                </div>
+                <div class="blok2">
+                    <input type="checkbox" name="AnswerOne" checked="@ViewBag.Answer.AnswerOne"><br>
+                    <input type="checkbox" name="AnswerTwo" checked="@ViewBag.Answer.AnswerTwo"><br>
+                    <input type="checkbox" name="AnswerThree" checked="@ViewBag.Answer.AnswerThree"><br>
+                    <input type="checkbox" name="AnswerFour" checked="@ViewBag.Answer.AnswerFour"><br>
+                    <input type="checkbox" name="AnswerFive" checked="@ViewBag.Answer.AnswerFive"><br>
+                    <input type="checkbox" name="AnswerSix" checked="@ViewBag.Answer.AnswerSix"><br>
+                    <input type="checkbox" name="AnswerSeven" checked="@ViewBag.Answer.AnswerSeven"><br>
+                    <input type="checkbox" name="AnswerEight" checked="@ViewBag.Answer.AnswerEight"><br>
+                    <input type="checkbox" name="AnswerNine" checked="@ViewBag.Answer.AnswerNine"><br>
+                    <input type="checkbox" name="AnswerTen" checked="@ViewBag.Answer.AnswerTen"><br>
+                </div>
+                <br>
+                <input style="margin-left:10px;" class="btn btn-success" type="submit" value="Зберегти" />
+            </form>
+            <br>
+            <a style="margin-left:10px;" class="edit" href="/Admin/Index">Назад</a>
+        </font>
+    </div>    
+</body>
+</html>

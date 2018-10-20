@@ -1,0 +1,51 @@
+﻿
+@{
+    ViewBag.Title = "CreateQestion";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<style>
+    .login_form {
+        width: 400px;
+    }
+</style>
+
+
+<h3 class="name_page">Создание вопроса</h3>
+
+
+@if (Session["Id"] != null)
+{
+    <div class="login_form">
+        <form method="post" action="/Forum/CreateQestion/">
+            <input type="hidden" name="ThemaId" value="@ViewBag.IdThemas" />
+            <input type="hidden" name="UserId" value="@Session["Id"]" />
+
+            <label>Вопрос</label>
+            <input class="form-control" type="text" name="Question" required=""/><br>
+
+            <label>Опишите более детально ваш вопрос</label>
+            <textarea class="form-control" name="Description" rows="15" required=""></textarea><br>
+
+            <input class="btn btn-default" type="submit" value="опубликовать" />
+        </form>
+    </div>
+}
+else
+{
+    <div class="login_form">
+        <p style="font-style:italic;">Чтобы задать вопрос нужно авторизоваться на сайте.</p>
+
+        <form method="post" action="/Forum/CreateQestion/" disabled>
+
+            <label>Вопрос</label>
+            <input class="form-control" type="text" name="Question" disabled /><br>
+
+            <label>Опишите более детально ваш вопрос</label>
+            <textarea class="form-control" name="Description" disabled rows="15"></textarea><br>
+
+            <input class="btn btn-default" type="submit" value="опубликовать" disabled />
+        </form>
+    </div>
+}
+  

@@ -1,0 +1,37 @@
+﻿@model jQuery.Models.Thema
+
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+    <style>
+        .content {
+            width: 800px;
+            margin: auto 20%;
+        }
+
+        .form-control {
+            width: 40%;
+            margin-top: 15px;
+            margin-bottom: 15px;
+        }
+    </style>
+    
+<font color="#1068af">
+    <h3 style="text-align:center; margin-bottom: 27px;" class="name_page">Редактирование название темы</h3>
+ </font>      
+    <form method="post" action="/Admin/EditThema/">
+        <input type="hidden" name="Id" value="@Model.Id"/>
+        <input type="hidden" name="LanguageId" value="@Model.LanguageId"/>
+
+        <label>Название</label><br>
+        <input style="width:100%" class="form-control" type="text" name="Name" required="" placeholder="введите название темы" value="@Model.Name"/><br>
+
+        <input class="btn btn-success" type="submit" value="Изменить" />
+    </form>
+        
+ 
+           <a style="margin-top:10px" class="edit" href="/Admin/Index">Назад</a>
+
+

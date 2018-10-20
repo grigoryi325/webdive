@@ -1,0 +1,14 @@
+﻿@if (@ViewBag.CheckSend != 0)
+{
+    <li>
+        <a title="сообщения" href="/Feedback/UserMessage/0">
+            <img width="18px" height="18px" src="~/Content/image/message.gif">
+            @if (@ViewBag.countUserMessage != 0)
+            {
+                <span>+</span>@ViewBag.countUserMessage
+            }
+        </a>
+    </li>
+}
+
+

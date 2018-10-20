@@ -1,0 +1,66 @@
+﻿@model jQuery.Models.MessageModels.FeedbackMessage
+
+@{
+    /**/
+
+    ViewBag.Title = "Контакты";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<style>
+    .login_form {
+        width: 400px;
+    }
+</style>
+
+<h3 class="name_page">Контакты</h3>
+
+<address>
+    По всем вопросам, критике, пожеланиям или если нашли баг - заполните форму ниже
+    или пишите на адрес:
+    <strong>Email:</strong>   <a href="mailto:frivnema@gmail.com">frivnema@gmail.com</a><br />
+</address>
+
+@if (Session["Email"] != null)
+{
+    <div class="login_form">
+        <form method="post" action="/Home/Contact/">
+            <input type="hidden" name="EmailUser" value="@Session["Email"]" />
+            <input type="hidden" name="Status" value="yes" />
+            <input type="hidden" name="AStatus" value="no">
+            <input type="hidden" name="DateTimeUser" value='@DateTime.Now' />
+            <input type="hidden" name="DateTimeAdmin" value='@DateTime.Now' />
+
+            <label for="Thema">Тема сообщения</label><br>
+            <input class="form-control" type="text" name="Thema" id="Thema" placeholder="Введите тему сообщения" required="" /><br>
+
+            <label>Выберите тип сообщения</label>
+            @Html.DropDownListFor(model => model.CategoryMessageId, ViewBag.CategoriesMessages as SelectList, new { @class = "form-control" })<br>
+
+            <label for="Description">Текст сообщения</label><br>
+            <textarea class="form-control" name="Description" cols="21" rows="10" id="Description" placeholder="Введите сообщение" required=""></textarea><br>
+
+            <input class="btn btn-default" type="submit" value="Отправить сообщение">
+        </form>
+    </div>
+}
+else
+{
+    <p style="font-style:italic;">Чтобы воспользоваться формой обратной связи, нужно авторизоваться на сайте.</p>
+    <div class="login_form">
+        <form method="post" action="" disabled>
+
+            <label for="Thema">Тема сообщения</label><br>
+            <input disabled class="form-control" /><br>
+
+            <label>Выберите тип сообщения</label>
+            @Html.DropDownListFor(model => model.CategoryMessageId, ViewBag.CategoriesMessages as SelectList, new { @class = "form-control", @disabled = "disabled" })<br>
+
+            <label for="Description">Текст сообщения</label><br>
+            <textarea disabled class="form-control" name="Description" cols="21" rows="10">
+            </textarea><br>
+
+            <input disabled class="btn btn-default" type="submit" value="Отправить сообщение">
+        </form>
+    </div>
+}

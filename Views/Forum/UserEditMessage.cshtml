@@ -1,0 +1,33 @@
+﻿@model jQuery.Models.ForumModels.Talking
+@{
+    ViewBag.Title = "EditMessage";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<style>
+
+    .login_form {
+        width: 600px;
+        margin: 0 auto;
+    }
+</style>
+
+
+<h3 class="name_page">Редактирование сообщения</h3>
+
+<div class="login_form">
+    <form method="post" action="/Forum/UserEditMessage/?page=@Model.AskQuestionId">
+        <input type="hidden" name="Id" value="@Model.Id">
+        <input type="hidden" name="AskQuestionId" value="@Model.AskQuestionId" />
+        <input type="hidden" name="UserId" value="@Model.UserId" />
+        <input type="hidden" name="Status" value="@Model.Status" />
+        <input type="hidden" name="LoginUser" value='@Model.LoginUser' />
+        <input type="hidden" name="Role" value='@Model.Role' />
+        <input type="hidden" name="DateTime" value='@Model.DateTime' />
+        <input type="hidden" name="DeleteText" value='@Model.DeleteText' />
+
+        <textarea class="form-control" type="text" name="Text" rows=" 8" required="">@Model.Text</textarea><br>
+
+        <input class="btn btn-default" type="submit" value="сохранить" />
+    </form>
+</div>
+

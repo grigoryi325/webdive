@@ -1,0 +1,47 @@
+﻿@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>CreateTeoria</title>
+    <link href="~/Content/bootstrap.css" rel="stylesheet" />
+    <link href="~/Content/styles.css" rel="stylesheet" />
+    <script src="~/Scripts/ckeditor/ckeditor.js"></script>
+    <style>
+        ul {
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+
+    <script>CKEDITOR.config.height = 600;</script>
+
+    <ul type="circle">
+        <li>Создание темы</li>
+        <li type="disc">Создание теории</li>
+        <li>Создание теста</li>
+        <li>Создание обьяснения</li>
+    </ul>
+    <hr>
+    <font color="#1068af">
+        <h3 align="center">Создание теории</h3>
+    </font>
+    <form method="post" action="/Admin/CreateTeoria">
+        <input type="hidden" name="CkTeoria" value="Ok">
+        <input type="hidden" name="Id" value="@ViewBag.IdTeoria">
+        <textarea name="Description" id="editor2"></textarea>
+
+        <script>
+            CKEDITOR.replace('editor2');
+        </script>
+        <br>
+        <input style="margin-left:10px;" class="btn btn-success" type="submit" id="submit" value="Создать">
+    </form><br>
+    <a style="margin-left:10px;" class="edit" href="/Admin/Index">Назад</a>
+</body>
+</html>
